@@ -24,18 +24,23 @@ class Pet {
   }
 
   update(id, obj) {
-    // update an item in the "db" with a new item
-    // PLACEHOLDER
-    if (id) {
-      return obj;
+    if (id && obj) {
+      let pet = this.db.find(record => record.id === id);
+      Object.assign(pet.record, obj);
+      return pet;
     }
   }
 
   delete(id) {
-    // find an item in the "db" via it's id, and delete
-    // PLACEHOLDER
     if (id) {
-      return null;
+      let index = this.db.findIndex(record => record.id === id);
+      if (index === -1) {
+        return '404';
+      } 
+      else {
+        this.db.splice(index, 1);
+        return this.db;
+      }
     }
   }
 }

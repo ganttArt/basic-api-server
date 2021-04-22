@@ -30,11 +30,19 @@ function createPet(req, res) {
 }
 
 function updatePet(req, res) {
-
+  const id = parseInt(req.params.id);
+  let thisPet = pet.update(id, req.body);
+  res.status(200).json(thisPet);
 }
 
 function deletePet(req, res) {
-
+  const id = parseInt(req.params.id);
+  let newDB = pet.delete(id);
+  if (newDB === '404') {
+    res.status(404).send('Pet with ID not in DB')
+  } else {
+    res.status(200).json(newDB);
+  }  
 }
 
 module.exports = router;
